@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Sitio del comercio";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="container jumbotron w-25 bg-light">
+    <p>Valor: @ViewBag.Amount</p>
+    <p>Orden de Compra: @ViewBag.BuyOrder</p>
+    <form action="@ViewBag.FormAction" method="post">
+        <input type="hidden" name="token_ws" value="@ViewBag.TokenWs" />
+        <a href="javascript: document.globalForm.submit();" class="btn btn-primary">Pagar</a>
+    </form>
+</div>
+
+<h4>Transaction.Create</h4>
+
+<h4>Request:</h4>
+<pre style="background-color: lightyellow;">
+POST: https://webpay3gint.transbank.cl/rswebpaytransaction/api/webpay/v1.0/transactions
+<code class="json">
+    {
+        "buy_order": "@ViewBag.BuyOrder",
+        "session_id": "@ViewBag.SessionId",
+        "amount": "@ViewBag.Amount",
+        "return_url": "@ViewBag.ReturnUrl"
+    }
+</code>
+</pre>
+<p> Largo máximo - buy_order: 26, session_id: 61, amount: 17, return_url: 256.</p>
+<h4>Response:</h4>
+<pre>
+<code>
+    @ViewBag.Result
+</code>
+</pre>
